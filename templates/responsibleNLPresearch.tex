@@ -3,7 +3,7 @@
 % 
 % This checklist was created by Marine Carpuat, Marie-Catherine de Marneffe and Ivan Vladimir Meza Ruiz,
 % the NAACL 2022 program chairs, working with Jesse Dodge and the ARR editors-in-chief Pascale Fung,
-% Goran Glavas, Sebastian Riedel and Amanda Stent. 
+% Goran Glavas, Sebastian Riedel and Amanda Stent. Source updated by Vilém Zouhar.
 % Additional feedback was provided by Anna Rogers, Margot Mieskes and the NAACL 2022 reproducibility chairs.
 % The checklist was reviewed by the ACL Ethics Committee.
 % 
@@ -21,6 +21,7 @@
 \newcounter{myenumii}[myenumi]
 \usepackage{titling}
 \usepackage{titlesec}
+\usepackage{etoolbox}
 
 % Enviroment for numbered tabular
 \newenvironment{enumtabular}[2]
@@ -34,11 +35,18 @@
 
 
 % Command for choice menu 
-\newcommand{\cm}[2]{\mbox{\ChoiceMenu[height=0.3cm,width=0.3cm,bordercolor=,name=#1,radio,radiosymbol=\ding{108}]{}{#2}}}
+\newcommand{\cm}[3]{\mbox{\ChoiceMenu[height=0.3cm,width=0.3cm,bordercolor=,name=#1,radio,radiosymbol=\ding{108},default=#3]{}{#2}}}
+
 % Command for text field
-\newcommand{\tf}[2][0.78]{\mbox{\TextField[bordercolor=,name=#2,multiline=true,height=4em, width=#1\textwidth]{\noindent \parbox{0.11\textwidth}{Section or\\Justification}}}}
+\newcommand{\tf}[3][0.78]{\mbox{\TextField[bordercolor=,name=#2,value={#3},multiline=true,height=4em, width=#1\textwidth]{\noindent \parbox{0.11\textwidth}{Section or\\Justification}}}}
+
 % Command for checkbox
 \newcommand{\cb}[1]{\mbox{\CheckBox[bordercolor=,name=#1,height=0.4cm,width=0.4cm]{}{\ }}}
+
+% Fix choice menu
+\makeatletter
+    \patchcmd{\HyField@FlagsRadioButton}{\HyField@SetFlag{Ff}{Radio}}{}{}{}
+\makeatother
 
 \titleformat{\section}{\Large\bfseries}{\Alph{section}}{1em}{}
 \titleformat{\subsection}{\normalfont\bfseries}{\Alph{section}\arabic{subsection}}{1em}{}
@@ -57,23 +65,28 @@ All supporting evidence can appear either in the main paper or the supplemental 
 
 Please do \textbf{not} modify, reorder, delete or add questions, question options or other wording of this document.
 
+% USAGE:
+% Use the last argument in the \cm and \tf commands to mark your answer, e.g.:
+% \cm{mainClaims}{Yes,No,N/A}{N/A}
+% \tf[0.85]{mainClaimsJustification}{This does not apply...}
+
 \section{For every submission}
 
 \subsection{Did you discuss the \textit{limitations} of your work?}
 If you answer {\bf Yes}, provide the section number; if you answer {\bf No}, provide a justification. \\[0.3cm]
 \begin{Form}
 \begin{tabular}{l}
-    \cm{mainClaims}{Yes,No,N/A}\\[0.2cm]
-    \tf[0.85]{mainClaimsJustification}
+    \cm{mainClaims}{Yes,No,N/A}{}\\[0.2cm]
+    \tf[0.85]{mainClaimsJustification}{}
 \end{tabular}
 \end{Form} \\[0.3cm]
-
+        
 \subsection{Did you discuss any potential \textit{risks} of your work?}
 If you answer {\bf Yes}, provide the section number; if you answer {\bf No}, provide a justification. \\[0.3cm]
 \begin{Form}
 \begin{tabular}{l}
-    \cm{risks}{Yes,No,N/A}\\[0.2cm]
-    \tf[0.85]{risksJustification}
+    \cm{risks}{Yes,No,N/A}{}\\[0.2cm]
+    \tf[0.85]{risksJustification}{}
 \end{tabular}
 \end{Form}
 
@@ -81,8 +94,8 @@ If you answer {\bf Yes}, provide the section number; if you answer {\bf No}, pro
 If you answer {\bf Yes}, provide the section number; if you answer {\bf No}, provide a justification. \\[0.3cm]
 \begin{Form}
 \begin{tabular}{l}
-    \cm{abstractIntro}{Yes,No,N/A}\\[0.2cm]
-    \tf[0.85]{abstractIntroJustification}
+    \cm{abstractIntro}{Yes,No,N/A}{}\\[0.2cm]
+    \tf[0.85]{abstractIntroJustification}{}
 \end{tabular}
 \end{Form}
 
@@ -90,7 +103,7 @@ If you answer {\bf Yes}, provide the section number; if you answer {\bf No}, pro
 If you answer {\bf Yes}, provide the section number; if you answer {\bf No}, you can skip the rest of this section. \\[0.3cm]
 \begin{Form}
 \begin{tabular}{l}
-\cm{createArtifacts}{Yes,No}\\[0.2cm]
+\cm{createArtifacts}{Yes,No}{}\\[0.2cm]
 \end{tabular}
 \end{Form}
 
@@ -99,8 +112,8 @@ If yes:
 If you answer {\bf Yes}, provide the section number; if you answer {\bf No}, provide a justification. \\[0.3cm]
 \begin{Form}
    \begin{tabular}{l}
-    \cm{citeCreators}{Yes,No,N/A}\\[0.2cm]
-    \tf{citeCreatorsJustification}
+    \cm{citeCreators}{Yes,No,N/A}{}\\[0.2cm]
+    \tf{citeCreatorsJustification}{}
 \end{tabular}
 \end{Form} \\[0.3cm]
 
@@ -108,8 +121,8 @@ If you answer {\bf Yes}, provide the section number; if you answer {\bf No}, pro
 If you answer {\bf Yes}, provide the section number; if you answer {\bf No}, provide a justification. \\[0.3cm]
 \begin{Form}
    \begin{tabular}{l}
-    \cm{legalGrounds}{Yes,No,N/A}\\[0.2cm]
-    \tf{legalGroundsJustification}
+    \cm{legalGrounds}{Yes,No,N/A}{}\\[0.2cm]
+    \tf{legalGroundsJustification}{}
 \end{tabular}
 \end{Form} \\[0.3cm]
 
@@ -117,8 +130,8 @@ If you answer {\bf Yes}, provide the section number; if you answer {\bf No}, pro
 If you answer {\bf Yes}, provide the section number; if you answer {\bf No}, provide a justification. \\[0.3cm]
 \begin{Form}
    \begin{tabular}{l}
-    \cm{intendedUse}{Yes,No,N/A}\\[0.2cm]
-    \tf{intendedUseJustification}
+    \cm{intendedUse}{Yes,No,N/A}{}\\[0.2cm]
+    \tf{intendedUseJustification}{}
 \end{tabular}
 \end{Form} \\[0.3cm]
 
@@ -126,8 +139,8 @@ If you answer {\bf Yes}, provide the section number; if you answer {\bf No}, pro
 If you answer {\bf Yes}, provide the section number; if you answer {\bf No}, provide a justification. \\[0.3cm]
 \begin{Form}
 \begin{tabular}{l}
-    \cm{personallyIdentifiableInformationOrOffensiveContent}{Yes,No,N/A}\\[0.2cm]
-    \tf{personallyIdentifiableInformationOrOffensiveContentJustification}
+    \cm{personallyIdentifiableInformationOrOffensiveContent}{Yes,No,N/A}{}\\[0.2cm]
+    \tf{personallyIdentifiableInformationOrOffensiveContentJustification}{}
 \end{tabular}
 \end{Form} \\[0.3cm]
 
@@ -135,8 +148,8 @@ If you answer {\bf Yes}, provide the section number; if you answer {\bf No}, pro
 If you answer {\bf Yes}, provide the section number; if you answer {\bf No}, provide a justification. \\[0.3cm]
 \begin{Form}
 \begin{tabular}{l}
-    \cm{documentation}{Yes,No,N/A}\\[0.2cm]
-    \tf{documentationJustification}
+    \cm{documentation}{Yes,No,N/A}{}\\[0.2cm]
+    \tf{documentationJustification}{}
 \end{tabular}
 \end{Form} \\[0.3cm]
 
@@ -144,8 +157,8 @@ If you answer {\bf Yes}, provide the section number; if you answer {\bf No}, pro
 If you answer {\bf Yes}, provide the section number; if you answer {\bf No}, provide a justification. \\[0.3cm]
 \begin{Form}
 \begin{tabular}{l}
-    \cm{relevantStatistics}{Yes,No,N/A}\\[0.2cm]
-    \tf{relevantStatisticsJustification}
+    \cm{relevantStatistics}{Yes,No,N/A}{}\\[0.2cm]
+    \tf{relevantStatisticsJustification}{}
 \end{tabular}
 \end{Form} \\[0.3cm]
 
@@ -153,7 +166,7 @@ If you answer {\bf Yes}, provide the section number; if you answer {\bf No}, pro
 If you answer {\bf Yes}, provide the section number; if you answer {\bf No}, you can skip the rest of this section. \\[0.3cm]
 \begin{Form}
 \begin{tabular}{l}
-    \cm{computationalExperiments}{Yes,No}
+    \cm{computationalExperiments}{Yes,No}{}
 \end{tabular}
 \end{Form}
 
@@ -162,8 +175,8 @@ If yes:
 If you answer {\bf Yes}, provide the section number; if you answer {\bf No}, provide a justification. \\[0.3cm]
 \begin{Form}
 \begin{tabular}{l}
-    \cm{reportReproducibility}{Yes,No,N/A}\\[0.2cm]
-    \tf{reportReproducibilityJustification}
+    \cm{reportReproducibility}{Yes,No,N/A}{}\\[0.2cm]
+    \tf{reportReproducibilityJustification}{}
 \end{tabular}
 \end{Form} \\[0.3cm]
 
@@ -171,8 +184,8 @@ If you answer {\bf Yes}, provide the section number; if you answer {\bf No}, pro
 If you answer {\bf Yes}, provide the section number; if you answer {\bf No}, provide a justification. \\[0.3cm]
 \begin{Form}
 \begin{tabular}{l}
-    \cm{bestFoundHyperparameter}{Yes,No,N/A}\\[0.2cm]
-    \tf{bestFoundHyperparameterJustification}
+    \cm{bestFoundHyperparameter}{Yes,No,N/A}{}\\[0.2cm]
+    \tf{bestFoundHyperparameterJustification}{}
 \end{tabular}
 \end{Form} \\[0.3cm]
 
@@ -180,8 +193,8 @@ If you answer {\bf Yes}, provide the section number; if you answer {\bf No}, pro
 If you answer {\bf Yes}, provide the section number; if you answer {\bf No}, provide a justification. \\[0.3cm]
 \begin{Form}
 \begin{tabular}{l}
-    \cm{descriptiveStatistics}{Yes,No,N/A}\\[0.2cm]
-    \tf{descriptiveStatisticsJustification}
+    \cm{descriptiveStatistics}{Yes,No,N/A}{}\\[0.2cm]
+    \tf{descriptiveStatisticsJustification}{}
 \end{tabular}
 \end{Form} \\[0.3cm]
 
@@ -189,15 +202,15 @@ If you answer {\bf Yes}, provide the section number; if you answer {\bf No}, pro
 If you answer {\bf Yes}, provide the section number; if you answer {\bf No}, provide a justification. \\[0.3cm]
 \begin{Form}
 \begin{tabular}{l}
-    \cm{existingPackages}{Yes,No,N/A}\\[0.2cm]
-    \tf{existingPackagesJustification}
+    \cm{existingPackages}{Yes,No,N/A}{}\\[0.2cm]
+    \tf{existingPackagesJustification}{}
 \end{tabular}
 \end{Form} \\[0.3cm]
 
 \section{Did you use \textit{human annotators} (e.g., crowdworkers) or \textit{research with human subjects}?}  If you answer {\bf Yes}, provide the section number; if you answer {\bf No}, you can skip the rest of this section. \\[0.3cm]
 \begin{Form}
 \begin{tabular}{l}
-    \cm{hummanAnnotators}{Yes,No}\\
+    \cm{hummanAnnotators}{Yes,No}{}\\
 \end{tabular}
 \end{Form}
 
@@ -206,8 +219,8 @@ If yes:
 If you answer {\bf Yes}, provide the section number; if you answer {\bf No}, provide a justification. \\[0.3cm]
 \begin{Form}
 \begin{tabular}{l}
-    \cm{fullTextInstructions}{Yes,No,N/A}\\[0.2cm]
-    \tf{fullTextInstructionsJustification}
+    \cm{fullTextInstructions}{Yes,No,N/A}{}\\[0.2cm]
+    \tf{fullTextInstructionsJustification}{}
 \end{tabular}
 \end{Form} \\[0.3cm]
 
@@ -215,8 +228,8 @@ If you answer {\bf Yes}, provide the section number; if you answer {\bf No}, pro
 If you answer {\bf Yes}, provide the section number; if you answer {\bf No}, provide a justification. \\[0.3cm]
 \begin{Form}
 \begin{tabular}{l}
-    \cm{payment}{Yes,No,N/A}\\[0.2cm]
-    \tf{paymentJustification}
+    \cm{payment}{Yes,No,N/A}{}\\[0.2cm]
+    \tf{paymentJustification}{}
 \end{tabular}
 \end{Form} \\[0.3cm]
 
@@ -224,8 +237,8 @@ If you answer {\bf Yes}, provide the section number; if you answer {\bf No}, pro
 If you answer {\bf Yes}, provide the section number; if you answer {\bf No}, provide a justification. \\[0.3cm]
 \begin{Form}
 \begin{tabular}{l}
-    \cm{consent}{Yes,No,N/A}\\[0.2cm]
-    \tf{consentJustification}
+    \cm{consent}{Yes,No,N/A}{}\\[0.2cm]
+    \tf{consentJustification}{}
 \end{tabular}
 \end{Form} \\[0.3cm]
 
@@ -233,8 +246,8 @@ If you answer {\bf Yes}, provide the section number; if you answer {\bf No}, pro
 If you answer {\bf Yes}, provide the section number; if you answer {\bf No}, provide a justification. \\[0.3cm]
 \begin{Form}
 \begin{tabular}{l}
-    \cm{ethicsAmountSpent}{Yes,No,N/A}\\[0.2cm]
-    \tf{ethicsAmountSpentJustification}
+    \cm{ethicsAmountSpent}{Yes,No,N/A}{}\\[0.2cm]
+    \tf{ethicsAmountSpentJustification}{}
 \end{tabular}
 \end{Form} \\[0.3cm]
 
@@ -242,8 +255,8 @@ If you answer {\bf Yes}, provide the section number; if you answer {\bf No}, pro
 If you answer {\bf Yes}, provide the section number; if you answer {\bf No}, provide a justification. \\[0.3cm]
 \begin{Form}
 \begin{tabular}{l}
-    \cm{annotator}{Yes,No,N/A}\\[0.2cm]
-    \tf{annotatorJustification}
+    \cm{annotator}{Yes,No,N/A}{}\\[0.2cm]
+    \tf{annotatorJustification}{}
 \end{tabular}
 \end{Form} \\[0.3cm]
 
